@@ -1,0 +1,15 @@
+meta {
+  name: Prueba_GET
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:8080/estufa?variable=temperaturaActual
+  body: none
+  auth: none
+}
+
+params:query {
+  variable: temperaturaActual
+}

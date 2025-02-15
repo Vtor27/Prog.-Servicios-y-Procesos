@@ -1,0 +1,18 @@
+meta {
+  name: POST_NuevaPeli
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/APIpelis/nuevaPeli
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+   "usuario": "UsuarioNuevo",
+   "titulo": "La princesa Monocromatica"
+  }
+}

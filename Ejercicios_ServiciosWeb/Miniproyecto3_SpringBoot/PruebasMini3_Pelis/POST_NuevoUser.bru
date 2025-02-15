@@ -1,0 +1,18 @@
+meta {
+  name: POST_NuevoUser
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8080/APIpelis/nuevoUsuario
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+   "usuario": "UsuarioNuevo"
+  }
+  
+}

@@ -1,0 +1,17 @@
+2022.10.10.15.53.52 - http-nio-8080-exec-1 : El servidor pasa a procesar la peticion GET: mostrarTodos
+2022.10.10.15.53.52 - http-nio-8080-exec-1 : Solicitada lista completa.
+2022.10.10.15.56.55 - http-nio-8080-exec-1 : Solicitado alias especifico.
+2022.10.10.19.54.00 - http-nio-8080-exec-1 : El servidor escribe el nuevo fichero.
+2022.10.10.19.54.48 - http-nio-8080-exec-4 : El servidor pasa a procesar la peticion GET: mostrarTodos
+2022.10.10.19.54.48 - http-nio-8080-exec-4 : Solicitada lista completa.
+2022.10.10.19.55.03 - http-nio-8080-exec-5 : Solicitado alias especifico.
+2022.10.10.19.56.53 - http-nio-8080-exec-1 : Solicitado alias especifico.
+2022.10.10.20.02.51 - http-nio-8080-exec-2 : El servidor escribe el nuevo fichero.
+2022.10.10.20.02.51 - http-nio-8080-exec-2 : Llamada e envioMail
+2022.10.10.20.02.52 - http-nio-8080-exec-2 : Inicio envio...
+2022.10.10.20.02.54 - http-nio-8080-exec-2 : Email enviado
+2022.10.10.20.06.06 - http-nio-8080-exec-1 : El servidor escribe el nuevo fichero.
+2022.10.10.20.06.06 - http-nio-8080-exec-1 : Llamada e envioMail
+2022.10.10.20.06.25 - http-nio-8080-exec-1 : Inicio envio...
+2022.10.10.20.06.27 - http-nio-8080-exec-1 : Email enviado
+2023.12.22.18.14.23 - http-nio-8080-exec-1 : El servidor escribe el nuevo fichero.

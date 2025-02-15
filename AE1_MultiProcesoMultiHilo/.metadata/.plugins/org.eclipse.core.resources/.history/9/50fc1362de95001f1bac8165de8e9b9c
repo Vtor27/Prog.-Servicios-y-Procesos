@@ -1,0 +1,98 @@
+package florida.AppProteinas;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOError;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Writer;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class SimulacionMP {
+
+	public static double simulation(int type) {
+		double calc = 0.0;
+		double simulationTime = Math.pow(5, type);
+		double startTime = System.currentTimeMillis();
+		double endTime = startTime + simulationTime;
+		while (System.currentTimeMillis() < endTime) {
+			calc = Math.sin(Math.pow(Math.random(), 2));
+		}
+		return calc;
+	}
+	
+	public static void realizarSimulacion(int tipo, int cantidad) throws IOException {
+		
+		DateTimeFormatter dateFormatterDate = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+		DateTimeFormatter formatTimeSim = DateTimeFormatter.ofPattern("ss_");
+		
+		System.out.println("Simulando " + cantidad + " proteinas del tipo: " + tipo);
+		for (int i = 0; i < cantidad; i++) {
+			LocalDateTime inicioSimProte = LocalDateTime.now();
+			String tiempoInicioProte = inicioSimProte.format(dateFormatterDate);
+			
+			long timeInicio = System.currentTimeMillis();
+			
+			double resultado = simulation(tipo);
+			
+			long timeFin = System.currentTimeMillis();
+			LocalDateTime tiempoFinProte = LocalDateTime.now();
+			String tiempoFinSimProte = tiempoFinProte.format(dateFormatterDate);	
+			long duracionMS = timeFin - timeInicio;
+			String duracionCentesimas = String.valueOf((timeFin - timeInicio) / 10);
+			
+			long duracionSeg = duracionMS / 1000;
+			long duracionCent = (duracionMS % 1000) / 10;
+			String duracionSegString = duracionSeg.format(formatTimeSim);
+			
+			String nombreFichero = nombreFicheros("MP", tipo, (i+1), tiempoInicioProte, duracionCentesimas);
+			System.out.println("Resultado de la proteina " + (i+1) + "de tipo " + tipo + ": " + resultado + "\n" + 
+			tiempoInicioProte + "_" + duracionCentesimas + "\n" + 
+			tiempoFinSimProte + "_" + duracionCentesimas + "\n" + 
+			duracionSeg + + "\n" +
+			resultado);
+			System.out.println("Nombre del fichero que seva a crear: " + nombreFichero + "\n");
+			
+//			File file = new File(nombreFichero);
+			
+			
+//			InputStreamReader isr = new InputStreamReader(null);
+//			BufferedReader br = new BufferedReader(isr);
+//			FileWriter fw = new FileWriter(file);
+//			BufferedWriter bw = new BufferedWriter(fw);
+//			
+//				String linea;
+//				while((linea = br.readLine()) != null) {
+//					
+//				}
+			}
+
+			
+		}
+	
+	
+	public static String nombreFicheros(String tipoSimulacion, int tipoProteina, int numeroSimulaciones, String tiempoInicioSim, String duracionCentesimas) {
+		
+		return "PROT_" + tipoSimulacion + "_" + tipoProteina + "_" + numeroSimulaciones + "_" + tiempoInicioSim + "_" + duracionCentesimas + ".sim";
+	}
+	
+	public static void main(String[] args) throws IOException {
+		if( args.length < 1 ) {
+			System.err.println("Debe haber como mínimo un tipo de proteina que simular.");
+			return;
+		}
+		int cantidadPrimaria = Integer.valueOf(args[0]);
+		int cantidadSecundaria = Integer.valueOf(args[1]);
+		int cantidadTerciaria = Integer.valueOf(args[2]);
+		int cantidadCuaternaria = Integer.valueOf(args[3]);
+		
+		realizarSimulacion(1, cantidadPrimaria);
+		realizarSimulacion(2, cantidadSecundaria);
+		realizarSimulacion(3, cantidadTerciaria);
+		realizarSimulacion(4, cantidadCuaternaria);
+	}
+
+}

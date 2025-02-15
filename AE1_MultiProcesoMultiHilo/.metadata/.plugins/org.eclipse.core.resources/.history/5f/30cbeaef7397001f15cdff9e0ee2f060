@@ -1,0 +1,172 @@
+package florida.AppProteinas;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import javax.swing.JOptionPane;
+
+public class Controlador {
+	private static int contadorSimulacionesGlobal = 1;
+	private Vista vista;
+
+	public Controlador(Vista vista) {
+		this.vista = vista;
+		control();
+	}
+
+	public void control() {
+		vista.getBtnSimular().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				List<Integer> cantidades = controlInputCantidadProteinas();
+				if (cantidades != null) {
+					controlSimulacionMultiproceso(cantidades);
+					controlSimulacionMultihilo(cantidades);
+				}
+			}
+
+		});
+	}
+
+	public synchronized int contadorSimulaciones() {
+		return contadorSimulacionesGlobal++;
+	}
+
+	public List<Integer> controlInputCantidadProteinas() {
+		try {
+			int cantidadPrimaria = Integer.parseInt(vista.getInputPrimaria().getText());
+			int cantidadSecundaria = Integer.parseInt(vista.getInputSecundaria().getText());
+			int cantidadTerciaria = Integer.parseInt(vista.getInputTerciaria().getText());
+			int cantidadCuaternaria = Integer.parseInt(vista.getInputCuaternaria().getText());
+
+			if (cantidadPrimaria < 0 || cantidadSecundaria < 0 || cantidadTerciaria < 0 || cantidadCuaternaria < 0) {
+				JOptionPane.showMessageDialog(null, "No se pueden introducir números negativos.");
+				return null;
+			}
+			return Arrays.asList(cantidadPrimaria, cantidadSecundaria, cantidadTerciaria, cantidadCuaternaria);
+
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Solo se pueden introducir números enteros.");
+			return null;
+		}
+	}
+
+	public synchronized void controlSimulacionMultihilo(List<Integer> cantidades) {
+
+		vista.getTextArea_MT().setText("");
+
+		ExecutorService es = Executors.newFixedThreadPool(50);
+
+		for (int tipo = 0; tipo < cantidades.size(); tipo++) {
+			int cantidad = cantidades.get(tipo);
+
+			for (int i = 0; i < cantidad; i++) {
+				synchronized (this) {
+					SimulacionMT smt = new SimulacionMT((tipo + 1), (i + 1), this);
+					es.submit(smt);
+				}
+			}
+		}
+		es.shutdown();
+	}
+
+	public synchronized void mostrarResultadosMT(String resultado) throws InterruptedException {
+		vista.getTextArea_MT().append(resultado + "\n");
+	}
+
+	public void controlSimulacionMultiproceso(List<Integer> cantidades) {
+
+		vista.getTextArea_MP().setText("");
+		
+		String clase = "florida.AppProteinas.SimulacionMP";
+		String javaHome = System.getProperty("java.home");
+		String javaBin = javaHome + File.separator + "bin" + File.separator + "java";
+		String classPath = System.getProperty("java.class.path");
+		
+		long InicioTotalSim = System.currentTimeMillis(); 
+		
+		int cantidadPrimarias = cantidades.get(0);
+	    int cantidadSecundarias = cantidades.get(1);
+	    int cantidadTerciarias = cantidades.get(2);
+	    int cantidadCuaternarias = cantidades.get(3);
+		
+		try {
+			for (int tipo = 0; tipo < cantidades.size(); tipo++) {
+				int cantidad = cantidades.get(tipo);
+
+				if (cantidad == 0) {
+					continue;
+				}
+
+				for (int i = 0; i < cantidad; i++) {
+					int numeroSimulacion = contadorSimulaciones();
+
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss_SS");
+					String tiempoInicioSim = LocalDateTime.now().format(formatter);
+					String nombreFichero = "PROT_MP_" + (tipo + 1) + "_n" + numeroSimulacion + "_" + tiempoInicioSim
+							+ ".sim";
+
+					List<String> command = new ArrayList<>();
+
+					command.add(javaBin);
+					command.add("-cp");
+					command.add(classPath);
+					command.add(clase);
+					command.add(String.valueOf(tipo + 1));
+					command.add(nombreFichero);
+
+					ProcessBuilder pb = new ProcessBuilder(command);
+					Process process = pb.start();
+
+					// Captura y muestra cualquier error del proceso
+					try (BufferedReader errorReader = new BufferedReader(
+							new InputStreamReader(process.getErrorStream()))) {
+						String errorLine;
+						while ((errorLine = errorReader.readLine()) != null) {
+							System.err.println("ERROR en proceso: " + errorLine);
+						}
+					}
+
+					int exitCode = process.waitFor();
+					if (exitCode != 0) {
+						System.err.println("Proceso terminó con código de error: " + exitCode);
+					}
+					
+					InputStreamReader isr = new InputStreamReader(process.getInputStream());
+					BufferedReader br = new BufferedReader(isr);
+					String linea;
+					while ((linea = br.readLine()) != null) {
+						vista.getTextArea_MP().append(linea + "\n");
+					}
+				}
+
+			}
+
+			long tiempoFinTotal = System.currentTimeMillis();
+	        long duracionTotalMS = tiempoFinTotal - InicioTotalSim;
+	        String duracionTotalCent = String.format("%04d", duracionTotalMS / 10);
+	        
+	        vista.getTextArea_MP().append("Cantidad de proteínas simuladas: \n" +
+                    "Primarias: " + cantidadPrimarias + "\n" +
+                    "Secundarias: " + cantidadSecundarias + "\n" +
+                    "Terciarias: " + cantidadTerciarias + "\n" +
+                    "Cuaternarias: " + cantidadCuaternarias + "\n" + "\n" +
+                    "Tiempo total de simulación: " + duracionTotalCent + " centésimas");
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar la simulación Multiproceso.");
+		}
+
+	}
+}

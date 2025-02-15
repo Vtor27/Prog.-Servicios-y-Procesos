@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "PruebasMini_CNI",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Prueba_GET
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/servidor?variable=mostrarTodos
+  body: none
+  auth: none
+}
+
+params:query {
+  variable: mostrarTodos
+}

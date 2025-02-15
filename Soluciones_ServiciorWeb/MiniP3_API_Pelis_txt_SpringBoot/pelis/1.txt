@@ -1,0 +1,5 @@
+Titulo: Bla bla bla
+Usuario1: Me ha gustado
+Usuario2: No me ha gustado nada
+Usuario3: Ni fu ni fa
+nombreDelUsuario: esta es mi resenya

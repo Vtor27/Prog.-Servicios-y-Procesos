@@ -1,0 +1,22 @@
+meta {
+  name: Prueba_POST
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/servidor/nuevo
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "fechaNacimiento": "1984-11-03",
+      "alias": "El Boticario",
+      "nombreCompleto": "Humberto Salcedo Fernández",
+      "fotografia": "https://randomuser.me/api/portraits/men/88.jpg",
+      "nacionalidad": "Colombiano"
+  }
+  
+}

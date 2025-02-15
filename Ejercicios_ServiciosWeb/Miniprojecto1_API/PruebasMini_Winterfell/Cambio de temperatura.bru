@@ -1,0 +1,15 @@
+meta {
+  name: Cambio de temperatura
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:7777/estufa
+  body: text
+  auth: none
+}
+
+body:text {
+  setTemperatura=20
+}

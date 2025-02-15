@@ -1,0 +1,5 @@
+INDEX VERSION 1.134+C:\Users\vtorg\OneDrive\Escritorio\FLORIDA\Programación de Servicios y Procesos(PSP)\Ejercicios T2 Multi\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+3413270776.index
+1483174988.index
+465426103.index

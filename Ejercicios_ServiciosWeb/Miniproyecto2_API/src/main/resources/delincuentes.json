@@ -1,0 +1,44 @@
+[
+    {
+        "fechaNacimiento": "1985-07-12",
+        "alias": "El Zorro",
+        "nombreCompleto": "Juan Pérez López",
+        "fotografia": "https://randomuser.me/api/portraits/men/1.jpg",
+        "nacionalidad": "Español"
+    },
+    {
+        "fechaNacimiento": "1990-02-25",
+        "alias": "La Sombra",
+        "nombreCompleto": "María González Ruiz",
+        "fotografia": "https://randomuser.me/api/portraits/women/2.jpg",
+        "nacionalidad": "Mexicana"
+    },
+    {
+        "fechaNacimiento": "1978-11-05",
+        "alias": "El Fantasma",
+        "nombreCompleto": "Carlos Ramírez Torres",
+        "fotografia": "https://randomuser.me/api/portraits/men/3.jpg",
+        "nacionalidad": "Argentino"
+    },
+    {
+        "fechaNacimiento": "1995-04-18",
+        "alias": "El Víbora",
+        "nombreCompleto": "Pedro Martínez Fernández",
+        "fotografia": "https://randomuser.me/api/portraits/men/5.jpg",
+        "nacionalidad": "Colombiano"
+    },
+    {
+        "fechaNacimiento": "1982-09-30",
+        "alias": "La Cobra",
+        "nombreCompleto": "Lucía Herrera Díaz",
+        "fotografia": "https://randomuser.me/api/portraits/women/4.jpg",
+        "nacionalidad": "Chilena"
+    },
+    {
+        "fechaNacimiento": "1982-11-15",
+        "alias": "El Lobo",
+        "nombreCompleto": "Andrés Salazar",
+        "fotografia": "https://randomuser.me/api/portraits/men/10.jpg",
+        "nacionalidad": "Argentino"
+    }
+]

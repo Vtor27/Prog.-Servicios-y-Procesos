@@ -1,0 +1,4 @@
+cine
+música
+videojuegos
+literatura

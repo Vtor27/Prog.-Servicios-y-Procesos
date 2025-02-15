@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"es.florida.psp.chatmulticanal","l":"Cliente"},{"p":"es.florida.psp.chatmulticanal","l":"Hilo"},{"p":"es.florida.psp.chatmulticanal","l":"Servidor"}];updateSearchResults();

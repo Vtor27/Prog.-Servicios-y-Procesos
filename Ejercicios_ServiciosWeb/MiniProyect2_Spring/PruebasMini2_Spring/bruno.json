@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "PruebasMini2_Spring",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

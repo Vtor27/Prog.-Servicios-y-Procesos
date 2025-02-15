@@ -1,0 +1,20 @@
+meta {
+  name: Prueba_POST_NuevaReseña
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/APIpelis/nuevaReseña
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+   "usuario": "Usuario1",
+   "id": "5",
+   "reseña": "No me gustó nada."
+  }
+  
+}
